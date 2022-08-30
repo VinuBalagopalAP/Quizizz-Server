@@ -1,8 +1,9 @@
 const express = require("express");
-const Joi = require("joi"); //used for validation
 const app = express();
+
 app.use(express.json());
 
+/// List of all questions
 const questions = [
   {
     id: 1,
@@ -30,15 +31,17 @@ const questions = [
   },
 ];
 
-//READ Request Handlers
+/// READ Request Handlers
 app.get("/", (req, res) => {
   res.send("Quizziz Server!!");
 });
 
+/// GET ALL QUESTIONS
 app.get("/api/questions", (req, res) => {
   res.send(questions);
 });
 
+/// GET QUESTION BY ID
 app.get("/api/questions/:id", (req, res) => {
   const question = questions.find(
     (element) => element.id === parseInt(req.params.id)
@@ -53,6 +56,6 @@ app.get("/api/questions/:id", (req, res) => {
   res.send(question);
 });
 
-//PORT ENVIRONMENT VARIABLE
+/// PORT ENVIRONMENT VARIABLE
 const port = process.env.PORT || 8080;
 app.listen(port, () => console.log(`Listening on port ${port}..`));
